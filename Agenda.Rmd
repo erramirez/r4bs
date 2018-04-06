@@ -1,0 +1,47 @@
+---
+title: "R4BS: Agenda"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+8:30 - 8:45 - Intro
+Part I: 8:45 - 9:30 
+PostBy the end of the day, you will have learned how to make this (show what “this” is)
+R; RStudio; Packages (Fns: install.packages() library() ); Tidyverse; Functions; Vectors
+Make vectors - everybody play in R. 
+Super basic: e.g., x = c(1,2,NA)
+TBD: Generate text data...
+One-off intro to text data (compare grep () and stringr() )
+Reading in data.  OPENING DATA IN R
+Read in all 30 files.
+BREAK
+Part II: 9:45 - 10:30 DATA MANIPULATION
+Join in additional dataset (join vs. bind)
+Get to know your data (str() etc.)
+Transform data (gather vs. spread)
+Key-value pair concept
+Aggregate data (summarise & group by)
+Derive variables (e.g., mutate() etc., and piping)
+Part III: 10:30- 11:15
+Visualization with ggplot2 
+RMarkdown intro
+You can make a pdf to send to your PI
+Write your own functions (and packages)
+Why you want to become an R user:
+The community
+R Ladies
+R Taskforce
+Conferences (e.g., R Studio)
+Resources
+“Experts”
+Tidyverse website
+Cheat sheets
+Person blogs
+RBloggers
+Stack Overflow
+R for Dummies
+R 4 Data Science online book
+TidyText by Julia Silge & David Robinson
