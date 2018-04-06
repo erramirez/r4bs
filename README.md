@@ -10,6 +10,9 @@ This workshop will introduce the power of using R for managing, visualizing, and
 
 A short introduction to R, RStudio, and RMarkdown will be given by the instructors. The remainder of the workshop will focus on example-driven instruction that will help attendees learn how to get started with R through using the RStudio application. Example data and analysis code will be made available, and attendees will be introduced to “tidy” data principles for importing, transforming, visualizing, and modeling data. Attendees will be also show how to use the RMarkdown document format and RStudio to create easily shareable and accessible documentation and analytical outputs. Attendees will have access to all workshop materials online for further review after completion of the workshop.
 
+## This Repo
+This repo contains all of the slides, code, and information shared in seminar. Click on the hyperlinked section headings to navigate to content for that section. 
+
 ## Agenda
 * 8:30 - 8:45 - INTRODUCTIONS
 
