@@ -13,12 +13,14 @@ A short introduction to R, RStudio, and RMarkdown will be given by the instructo
 ## Agenda
 * 8:30 - 8:45 - INTRODUCTIONS
 
-* 8:45 - 9:30: GETTING STARTED WITH R  
+* 8:45 - 9:00: GETTING STARTED WITH R  
   * R
   * RStudio
-  * Packages
   * R Basics (Vectors, DataFrames, and Lists. Oh My!)
+  * Packages
   * Intro to the Tidyverse & the Magic %>%
+  
+* 9:00 - 9:30: READING IN DATA  
   * Reading in Data
   * Getting to Know Your Data
   * Formatting Variables
