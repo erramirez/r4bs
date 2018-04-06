@@ -41,7 +41,6 @@ A short introduction to R, RStudio, and RMarkdown will be given by the instructo
   * Bar, Lines, and Dots
   * Formatting Your Plots
   * EXERCISE 3: Visualize Time Series Data
-
   * Intro to RMarkdown (if time allows)
   
 * 11:15 - 11:30: THE R COMMUNITY
