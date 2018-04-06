@@ -12,11 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Intro
 - What is R
-- Why should you use R
-  - vs SPSS
-  - vs SAS
-  - vs 
-  
+
   https://www.coursera.org/learn/r-programming/lecture/pAbaE/overview-and-history-of-r
   History
    - S Language
@@ -57,4 +53,4 @@ Intro
       
   - R CRAN
     - intro to R
-    - writring r extens
+    - writring r extensions
