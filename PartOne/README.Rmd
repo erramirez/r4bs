@@ -39,5 +39,7 @@ library(tidyverse)
 p01_readr <- read_csv("https://raw.githubusercontent.com/erramirez/r4bs/master/ExampleData/FitbitDailyData/p01_dailyActivity.csv")
 
 ```
+Well look at that! The `read_csv` package not only loads the data but it automatically prints the the column (variable) format. You'll also notice that `ActivityDate` is not a factor, but a character. Awesome. 
+
 
 
