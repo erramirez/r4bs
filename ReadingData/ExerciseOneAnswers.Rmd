@@ -1,0 +1,36 @@
+---
+title: "Exercise One: Answers"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. Read in the first five participants (p01 - p05).
+#### Drop/remove the following variables: `TrackerDistance`, `SedentaryDistance`, and `Calories`.
+
+#### Set variables in the appropriate format(s).
+### Read in the demographics file and set appropriate variables as factors.
+
+#### Drop/remove the following variables: `Ethnicity` and `Education`.
+###Read in the goals file.
+
+### Tip: Reading Multiple Files
+When you have multiple files that share the same structure you don't have to always read them in one by one. Let's go through a quick example of how to do that. 
+
+We'll use a combination of creating a list of the file names. Since we're using files in a subdirectory we use the full path and also make sure to store the full file path name. We then pass the list of file names use `map_df` from the `purrr` package to read the files in and bind them together. 
+
+```{r read_multiplefiles}
+dailyactivity_all <- list.files(path = "~/GitHub/r4bs/ExampleData/FitbitDailyData/",
+                    pattern = "*.csv", # only look for .csv files
+                    full.names = TRUE) %>% # use the full path name
+  map_df(~read_csv(., 
+                   col_types = cols( 
+                     ActivityDate = col_date("%m/%d/%y")
+                     )
+                   )
+         )
+
+```
+

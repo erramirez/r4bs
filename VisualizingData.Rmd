@@ -1,0 +1,45 @@
+---
+title: "r4bs: Visualizing Data"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+First things first - let's make sure you have all the necessary files. 
+
+1. Navigate to the [r4bs github repo](https://github.com/erramirez/r4bs)
+2. Dowload or Clone the repo
+3. Open the r4bs.Rproj file
+
+## ggplot 
+
+This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+
+```{r}
+
+```
+
+### Dots
+```{r}
+
+```
+
+### Lines
+```{r}
+
+```
+
+### Bars & Columns
+```{r}
+
+```
+
+### Formatting Plots
+```{r}
+
+```
+
+
+
+

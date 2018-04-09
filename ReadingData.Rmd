@@ -79,7 +79,7 @@ You can also do other types of formatting and data editing within your `read_csv
 # you can also use other arguments to help with reading in data in a way that works for you
 # we use col_skip here to specificy that we don't want any distance related data read in
 
-p01_readrformatskip <- read_csv("https://raw.githubusercontent.com/erramirez/r4bs/master/ExampleData/FitbitDailyData/p01_dailyActivity.csv",
+p01_readrformatskip <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p01_dailyActivity.csv",
                             col_types = cols(
                               ActivityDate = col_date("%m/%d/%y"),
                               TotalDistance = col_skip(),

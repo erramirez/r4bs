@@ -32,11 +32,11 @@ This repo contains all of the slides, code, and information shared in seminar. C
 * 9:30 - 9:45: BREAK
 
 * 9:45 - 10:30: DATA MANIPULATION
-  * Merging Data Sets
+  * Tidy Data
   * Transforming Data
+  * Merging Data Sets
   * Aggregating Data
   * Deriving Data
-  * Working with Dates and Times
   * EXERCISE 2: Data Cleaning and Derived Data
   
 * 10:30- 11:00: VISUALIZATION AND RMARKDOWN
@@ -46,11 +46,12 @@ This repo contains all of the slides, code, and information shared in seminar. C
   * EXERCISE 3: Visualize Time Series Data
   * Intro to RMarkdown (if time allows)
   
-* 11:15 - 11:30: THE R COMMUNITY & RESOURCESMa
+* 11:15 - 11:30: THE R COMMUNITY & RESOURCES
+  * Texts
   * Websites & Blogs
   * Social Media
   * Conferences and IRL Groups
-  * Texts
+
   
 ## Your Instructors
 **Gina Merchant, PhD** is a behavioral and data scientist with extensive experience working with technology to promote health behavior change. Dr. Merchant is a member of the UX Team at ResMed where she helps leverage empirical evidence, and combine UX and behavioral design in order to create digital solutions that improve patient engagement. 
