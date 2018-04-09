@@ -41,7 +41,7 @@ Let's examine a data set that has step data spread across many columns:
 # load tidyverse to start!
 
 library(tidyverse)
-gather_example <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p1_p5_Steps.csv")
+gather_example <- read_csv("~/GitHub/r4bs/ExampleData/Transform/p1_p5_Steps.csv")
 
 gather_example
 ```
@@ -65,11 +65,13 @@ As you may have guessed, spreading is the opposite of gathering. When you have d
 Let's start with some example data. 
 ```{r spread_example_data}
 # date should be in date format so we use col_date here to format it
-spread_example <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p1_p5_ActivityIntensity.csv", 
+spread_example <- read_csv("~/GitHub/r4bs/ExampleData/Transform/p1_p5_ActivityIntensity.csv", 
                            col_types = cols(
                              date = col_date("%m/%d/%y")
                            )
                            )
+
+spread_example
 ```
 You can see here that four different activity intensity variables are scattered across multiple rows. We need to get these variables into columns. 
 
@@ -89,16 +91,185 @@ p1_p5_DailyIntensityMinutes
 Now we have a data set with one day's worth of activity intensity values across each of the four activity intensity variables for each day (observation).
 
 ## Merging 
-```{r}
+Rarely are you ever working with solitary data files all by themselves. Given the complexities of data collected and analyses you'll need to perform, it's quite common to combine data sets to produce the desired data you need for the next step in your data exploration and analysis. 
+
+We're going to go over two types of merging here: _binds_ and _joins_. 
+
+### Binding
+In some cases you'll only want to add a few rows to a data frame, add a few columns to a data frame, or combine data frames that have the same variables. 
+
+The most common method of combining data sets that have * the same exact structure* is to use the `rbind()` function. Keep in mind that this method is restrive as it requires the column names to be *identical* across each each of the data set. Let's try it with a few of our dailyActivity data sets. 
+```{r rbind_example, error=TRUE}
+# read in p01
+p01_dailyActivity <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p01_dailyActivity.csv",
+                            col_types = cols(
+                              ActivityDate = col_date("%m/%d/%y") 
+                            )
+)
+
+# read in p02
+p02_dailyActivity <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p02_dailyActivity.csv",
+                            col_types = cols(
+                              ActivityDate = col_date("%m/%d/%y") 
+                            )
+)
+
+# read in p03
+p03_dailyActivity <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p03_dailyActivity.csv",
+                            col_types = cols(
+                              ActivityDate = col_date("%m/%d/%y") 
+                            )
+)
+
+# bind all three above to one data frame using rbind()
+p1p2p3_dailyActivity <- rbind(p01_dailyActivity, p02_dailyActivity, p03_dailyActivity)
+
+p1p2p3_dailyActivity
+
+# let's see an example where it doesn't work
+
+# read in p01
+p01_dailyActivity <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p01_dailyActivity.csv",
+                            col_types = cols(
+                              ActivityDate = col_date("%m/%d/%y") 
+                            )
+)
+
+# read in p02
+p02_dailyActivity <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p02_dailyActivity.csv",
+                            col_types = cols(
+                              ActivityDate = col_date("%m/%d/%y") 
+                            )
+)
+
+# read in p03
+# remove Calories for rbind error example
+p03_dailyActivityNoCal <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p03_dailyActivity.csv",
+                            col_types = cols(
+                              ActivityDate = col_date("%m/%d/%y"),
+                              Calories = col_skip()
+                            )
+)
+
+# this now throws an error since p03_DailyActivity doesn't have the same variables as p01 and p02.
+p1p2p3_dailyActivity <- rbind(p01_dailyActivity, p02_dailyActivity, p03_dailyActivityNoCal)
 
 ```
 
-## Aggregating & Summarizing 
-```{r}
+`dplyr`, part of the tidyverse family contains a few updated functions that better handle these type of binding problems: 
+* `bind_rows`: Appends new rows, columns do not need to match.
+* `bind_cols`: Appends new columns, rows do not need to match.
 
+### Joining
+There are four types of joins that are supported via `dplyr` functions:
+* `left_join`: left_join(a, b, by = "x"): join matching rows from b to a.
+* `right_join`: right_join(a, b, by = "x"): join matching rows from a to b.
+* `inner_join`: inner_join(a, b, by = "x"); join data and retain only rows in both sets.
+* `full_join`: full_join(a, b, by = "x"); join data and retain all values, all rows
+
+Let's try a quick example where we join demographic data to the daily activity data. 
+```{r join_example}
+# combining all activity files 
+# from ExerciseOne.md tips
+dailyactivity_all <- list.files(path = "~/GitHub/r4bs/ExampleData/FitbitDailyData/",
+                    pattern = "*.csv", # only look for .csv files
+                    full.names = TRUE) %>% # use the full path name
+  map_df(~read_csv(., 
+                   col_types = cols( 
+                     ActivityDate = col_date("%m/%d/%y")
+                     )
+  )
+  )
+
+dailyactivity_all
+
+demographics_factor <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDemographics/demographics.csv", 
+                                col_types = cols(
+                                  Gender = col_factor(levels = c("Female", "Male")),
+                                  Ethnicity = col_factor(NULL),
+                                  Education = col_factor(levels = 
+                                                           c("Some High School",
+                                                             "Some College or Vocational Training",
+                                                             "Completed College or University",
+                                                             "Completed Graduate or Professional Degree")),
+                                  `Martial Status` = col_factor(levels = NULL), 
+                                  `Work Status` = col_factor(levels = NULL),
+                                  Income = col_factor(levels = c("$10,000-$19,000",
+                                                                 "$20,000-$29,000",
+                                                                 "$30,000-$39,000",
+                                                                 "$40,000-$49,000",
+                                                                 "$50,000-$59,000",
+                                                                 "$60,000-$69,000",
+                                                                 "$70,000-$79,000",
+                                                                 "$80,000-$89,000",
+                                                                 "$90,000-$99,000",
+                                                                 "> $100,000"), 
+                                                      ordered = TRUE
+                                                      )
+                                )
+)
+
+# using inner_join for only matching ids in both data sets
+# id is saved as ID in demographics, tell inner_join about that id == ID
+dailyactivity_demographics <- inner_join(dailyactivity_all, demographics_factor, by = c("id" = "ID"))
+
+dailyactivity_demographics
 ```
 
 ## Deriving 
-```{r}
+So you've read in, formatted, and merged data sets. What comes next? Well, what if you need to also create new variables before you move on to the next step? There is a great tool for just that - `mutate()`! the `mutate()` function powers the ability to derive a variable and create new variables.
 
+Let's go over a few examples of when you may want to derive some activity variables that aren't part of the original data set. 
+
+```{r mutate_example}
+
+# use mutate to create a new variable from the sum of two variables
+dailyMVPA <- dailyactivity_all %>% 
+  mutate(MVPAmins = (FairlyActiveMinutes + VeryActiveMinutes)) %>% 
+  select(id, ActivityDate, MVPAmins) # use select() to select named columns
+
+dailyMVPA
+
+# use case_when within mutate to classify ranges
+# case_when is great because it's a sequential operation
+dailyMVPA2 <- dailyMVPA %>% 
+  mutate(MVPAguideline = case_when(MVPAmins < 30 ~ "low",
+                                   MVPAmins < 60 ~ "medium",
+                                   MVPAmins >= 60 ~ "high"
+                                   ) 
+         )
+
+dailyMVPA2
 ```
+
+
+## Aggregating & Summarizing 
+Now, we get into the fun part of manipulating and working with data - turning one data set into another that provide better insight and information.
+
+We're going to focus on two core functions that are commonly used together, `group_by` and `summarise`. These two function do exactly what you think they might do:
+* `group_by`: groups based on unique values of a column or columns
+* `summarise`: supports a variety of functions to summarise groups specified by `group_by`
+
+Let's say we want to create a new data set that gave us the following information
+* number of days of observation for each particiapnt
+* mean, sd, min, and max values for steps
+* mean, sd, min, and max for MVPA minutes
+
+```{r aggregate_summary}
+
+activitysummary <- dailyactivity_all %>% 
+  group_by(id) %>% 
+  summarise(observation_days = n(),
+            meansteps = mean(TotalSteps),
+            sdsteps = sd(TotalSteps),
+            minsteps = min(TotalSteps),
+            maxsteps = max(TotalSteps),
+            meanMVPA = mean(FairlyActiveMinutes+VeryActiveMinutes),
+            sdMVPA = sd(FairlyActiveMinutes+VeryActiveMinutes),
+            minMVPA = min(FairlyActiveMinutes+VeryActiveMinutes),
+            maxMVPA = max(FairlyActiveMinutes+VeryActiveMinutes)
+            )
+
+activitysummary
+```
+

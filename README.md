@@ -35,8 +35,8 @@ This repo contains all of the slides, code, and information shared in seminar. C
   * Tidy Data
   * Transforming Data
   * Merging Data Sets
-  * Aggregating Data
   * Deriving Data
+  * Aggregating Data
   * EXERCISE 2: Data Cleaning and Derived Data
   
 * 10:30- 11:00: VISUALIZATION AND RMARKDOWN
