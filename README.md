@@ -19,7 +19,7 @@ This repo contains all of the slides, code, and information shared in seminar. C
 * 8:45 - 9:00: GETTING STARTED WITH R  
   * R
   * RStudio
-  * R Basics (Vectors, DataFrames, and Lists. Oh My!)
+  * R Basics (Vectors, Data Frames, and Lists. Oh My!)
   * Packages
   * Intro to the Tidyverse & the Magic %>%
   
@@ -46,13 +46,13 @@ This repo contains all of the slides, code, and information shared in seminar. C
   * EXERCISE 3: Visualize Time Series Data
   * Intro to RMarkdown (if time allows)
   
-* 11:15 - 11:30: THE R COMMUNITY
+* 11:15 - 11:30: THE R COMMUNITY & RESOURCESMa
   * Websites & Blogs
   * Social Media
   * Conferences and IRL Groups
   * Texts
   
 ## Your Instructors
-**Gina Merchant, PhD** is a behavioral and data scientist with extensive experience working with technology to promote health behavior change. Dr. Merchant is a member of the UX Team at ResMed where she helps leverage empirical evidence, and combine UX and behavioral design in order to reate digital solutions that improve patient engagement. 
+**Gina Merchant, PhD** is a behavioral and data scientist with extensive experience working with technology to promote health behavior change. Dr. Merchant is a member of the UX Team at ResMed where she helps leverage empirical evidence, and combine UX and behavioral design in order to create digital solutions that improve patient engagement. 
 
 **Ernesto Ramirez, PhD** is the Director of Research and Development at Fitabase, the leading data management platform supporting consumer wearables for research and clinical trials. Since it's inception in 2016 Fitabase has supported over 450 different projects, processing and delivering over 4.5 billion minutes of data to researchers around the world. 
