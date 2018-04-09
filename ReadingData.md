@@ -386,4 +386,6 @@ head(p01_excel)
 Learning More
 -------------
 
-You can learn more about using `readr` here: <http://readr.tidyverse.org/> You can learn more abour using `readxl` here: <http://readxl.tidyverse.org/>
+You can learn more about using `readr` here: <http://readr.tidyverse.org/>
+
+You can learn more abour using `readxl` here: <http://readxl.tidyverse.org/>
