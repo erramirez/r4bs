@@ -25,6 +25,7 @@ Websites & Blogs
 -   [UCLA Institute for Digital Research and Education - R](https://stats.idre.ucla.edu/r/)
 -   [R for Data Science](http://r4ds.had.co.nz/)
 -   [Beginner's guide to R - ComputerWorld](http://www.computerworld.com/article/2497143/business-intelligence/business-intelligence-beginner-s-guide-to-r-introduction.html)
+-   [Flowing Data](http://flowingdata.com/) - general data science, membership-based R tutorials ($5/mo)
 
 Q&A Sites
 ---------
