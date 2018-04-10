@@ -4,7 +4,7 @@ r4bs: Reading Data
 First things first - let's make sure you have all the necessary files.
 
 1.  Navigate to the [r4bs github repo](https://github.com/erramirez/r4bs)
-2.  Dowload or Clone the repo
+2.  Dow load or Clone the repo
 3.  Open the r4bs.Rproj file
 
 Reading in Data
@@ -45,7 +45,7 @@ str(p01_base)
     ##  $ Calories                : int  1687 1969 2084 1699 1904 1911 1780 1678 1670 1650 ...
     ##  $ id                      : int  1 1 1 1 1 1 1 1 1 1 ...
 
-As you can see `str()` prints the structure of our dataframe, giving us information on: \* the number of observations (rows) \* the number of variables (columns) \* the format or column type
+As you can see `str()` prints the structure of our data frame, giving us information on: \* the number of observations (rows) \* the number of variables (columns) \* the format or column type
 
 While that *looks good* I don't think that we actually want to store our `ActivityDate` variable as a factor. This is a quirk of the `read.csv` function - it sometimes converts strings to factors! So, let's dive into the Tidyverse and see how that works.
 
@@ -174,12 +174,12 @@ You may not always be working with .csv files so you'll be happy to know that `r
 -   `read_tsv()`: tab separated files
 -   `read_delim()`: general delimited files
 -   `read_fwf()`: fixed width files
--   `read_table()`: tabular files where colums are separated by white-space.
+-   `read_table()`: tabular files where columns are separated by white-space.
 -   `read_log()`: web log files
 
 ### Working with Factors
 
-Since not all data is numerical (or integer), we should probably touch on how to deal with factors. Factors are important, especially in survey data, as they represent categorial data. Let's work with some demographic data to better understand factors.
+Since not all data is numerical (or integer), we should probably touch on how to deal with factors. Factors are important, especially in survey data, as they represent categorical data. Let's work with some demographic data to better understand factors.
 
 We provide a demographic data file here: `ExampleDate/FitbitDemographics/demographics.csv`. Let's load it and take a peak at what we have.
 
@@ -241,7 +241,7 @@ levels(colors)
 
     ## [1] "red"    "orange" "yellow" "green"  "blue"   "indigo" "violet"
 
-So now say that thesevcategories actually have a distinct order that is useful for passing to computation arguments such as `min()` or `max()`. We can easily add an argument to make that happen.
+So now say that these categories actually have a distinct order that is useful for passing to computation arguments such as `min()` or `max()`. We can easily add an argument to make that happen.
 
 ``` r
 # factor, with levels and ordered
@@ -388,4 +388,4 @@ Learning More
 
 You can learn more about using `readr` here: <http://readr.tidyverse.org/>
 
-You can learn more abour using `readxl` here: <http://readxl.tidyverse.org/>
+You can learn more about using `readxl` here: <http://readxl.tidyverse.org/>

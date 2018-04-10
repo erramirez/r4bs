@@ -4,13 +4,13 @@ r4bs: Data Manipulation
 First things first - let's make sure you have all the necessary files.
 
 1.  Navigate to the [r4bs github repo](https://github.com/erramirez/r4bs)
-2.  Dowload or Clone the repo
+2.  Download or Clone the repo
 3.  Open the r4bs.Rproj file
 
 Tidy Data
 ---------
 
-When working with the tidyverse family of packages and analytical processes it's best to follow tidy data princples. In the book, [*R for Data Science*](http://r4ds.had.co.nz/tidy-data.html), tidy data is described as:
+When working with the tidyverse family of packages and analytical processes it's best to follow tidy data principles. In the book, [*R for Data Science*](http://r4ds.had.co.nz/tidy-data.html), tidy data is described as:
 
 > There are three interrelated rules which make a dataset tidy: \* Each variable must have its own column. \* Each observation must have its own row. \* Each value must have its own cell.
 
@@ -174,7 +174,7 @@ We're going to go over two types of merging here: *binds* and *joins*.
 
 In some cases you'll only want to add a few rows to a data frame, add a few columns to a data frame, or combine data frames that have the same variables.
 
-The most common method of combining data sets that have \* the same exact structure\* is to use the `rbind()` function. Keep in mind that this method is restrive as it requires the column names to be *identical* across each each of the data set. Let's try it with a few of our dailyActivity data sets.
+The most common method of combining data sets that have \* the same exact structure\* is to use the `rbind()` function. Keep in mind that this method is restrictive as it requires the column names to be *identical* across each each of the data set. Let's try it with a few of our dailyActivity data sets.
 
 ``` r
 # read in p01
@@ -435,7 +435,7 @@ Now, we get into the fun part of manipulating and working with data - turning on
 
 We're going to focus on two core functions that are commonly used together, `group_by` and `summarise`. These two function do exactly what you think they might do: \* `group_by`: groups based on unique values of a column or columns \* `summarise`: supports a variety of functions to summarise groups specified by `group_by`
 
-Let's say we want to create a new data set that gave us the following information \* number of days of observation for each particiapnt \* mean, sd, min, and max values for steps \* mean, sd, min, and max for MVPA minutes
+Let's say we want to create a new data set that gave us the following information \* number of days of observation for each participant \* mean, sd, min, and max values for steps \* mean, sd, min, and max for MVPA minutes
 
 ``` r
 # create a new data set of summary data
@@ -472,7 +472,7 @@ activitysummary
     ## # ... with 20 more rows, and 3 more variables: sdMVPA <dbl>,
     ## #   minMVPA <int>, maxMVPA <int>
 
-Sometimes you may want to manipulate data as part of an intermediate step and not save that transformation. You can use the piping proccess to manipulate and pass that manipulated/transformed data to the next step in the process.
+Sometimes you may want to manipulate data as part of an intermediate step and not save that transformation. You can use the piping process to manipulate and pass that manipulated/transformed data to the next step in the process.
 
 Let's explore how that works with our full data set to understand some summary information about when people do an do not meet their goals.
 
