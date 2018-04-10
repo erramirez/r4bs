@@ -327,14 +327,23 @@ demographics_factor <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDemographics/de
                                 )
 )
 
+library(readxl)
+stepgoals <- read_xlsx("~/GitHub/r4bs/ExampleData/FitbitDemographics/goals.xlsx")
+
 # using inner_join for only matching ids in both data sets
 # id is saved as ID in demographics, tell inner_join about that id == ID
-dailyactivity_demographics <- inner_join(dailyactivity_all, demographics_factor, by = c("id" = "ID"))
-
-dailyactivity_demographics
+# chaining joins to add a third data set, stepgoals
+dailyactivity_demo_goals <- inner_join(dailyactivity_all, demographics_factor, by = c("id" = "ID")) %>% 
+  left_join(., stepgoals)
 ```
 
-    ## # A tibble: 20,640 x 23
+    ## Joining, by = "id"
+
+``` r
+dailyactivity_demo_goals
+```
+
+    ## # A tibble: 20,640 x 24
     ##    ActivityDate TotalSteps TotalDistance TrackerDistance LoggedActivities…
     ##    <date>            <int>         <dbl>           <dbl>             <dbl>
     ##  1 2012-01-09         6425          6.23            6.23              0.  
@@ -347,14 +356,14 @@ dailyactivity_demographics
     ##  8 2012-01-16         5720          3.89            3.89              0.  
     ##  9 2012-01-17         5235          3.56            3.56              0.  
     ## 10 2012-01-18         4850          3.30            3.30              0.  
-    ## # ... with 20,630 more rows, and 18 more variables:
+    ## # ... with 20,630 more rows, and 19 more variables:
     ## #   VeryActiveDistance <dbl>, ModeratelyActiveDistance <dbl>,
     ## #   LightActiveDistance <dbl>, SedentaryActiveDistance <dbl>,
     ## #   VeryActiveMinutes <int>, FairlyActiveMinutes <int>,
     ## #   LightlyActiveMinutes <int>, SedentaryMinutes <int>, Calories <int>,
-    ## #   id <int>, Gender <fct>, Age <int>, BMI <dbl>, Ethnicity <fct>,
+    ## #   id <dbl>, Gender <fct>, Age <int>, BMI <dbl>, Ethnicity <fct>,
     ## #   Education <fct>, `Martial Status` <fct>, `Work Status` <fct>,
-    ## #   Income <ord>
+    ## #   Income <ord>, stepgoal <dbl>
 
 Deriving
 --------
@@ -429,6 +438,8 @@ We're going to focus on two core functions that are commonly used together, `gro
 Let's say we want to create a new data set that gave us the following information \* number of days of observation for each particiapnt \* mean, sd, min, and max values for steps \* mean, sd, min, and max for MVPA minutes
 
 ``` r
+# create a new data set of summary data
+# first group, then summarise
 activitysummary <- dailyactivity_all %>% 
   group_by(id) %>% 
   summarise(observation_days = n(),
@@ -460,3 +471,54 @@ activitysummary
     ## 10    10              631     8826.   8878.       0.   50510.    102. 
     ## # ... with 20 more rows, and 3 more variables: sdMVPA <dbl>,
     ## #   minMVPA <int>, maxMVPA <int>
+
+Sometimes you may want to manipulate data as part of an intermediate step and not save that transformation. You can use the piping proccess to manipulate and pass that manipulated/transformed data to the next step in the process.
+
+Let's explore how that works with our full data set to understand some summary information about when people do an do not meet their goals.
+
+``` r
+# we can also chain together multiple types of transformations
+# can use intermediate steps that may not need to be saved as variables
+
+goalsummary <- dailyactivity_demo_goals %>% 
+  mutate(goalday = case_when(TotalSteps < stepgoal ~ "Goal Not Met",
+                              TotalSteps >= stepgoal ~ "Goal Met")
+         ) %>% 
+  group_by(id, goalday) %>% 
+  summarise(days = n(),
+            meansteps = mean(TotalSteps),
+            sdsteps = sd(TotalSteps),
+            minsteps = min(TotalSteps),
+            maxsteps = max(TotalSteps),
+            meanMVPA = mean(FairlyActiveMinutes+VeryActiveMinutes),
+            sdMVPA = sd(FairlyActiveMinutes+VeryActiveMinutes),
+            minMVPA = min(FairlyActiveMinutes+VeryActiveMinutes),
+            maxMVPA = max(FairlyActiveMinutes+VeryActiveMinutes)
+  ) %>% 
+  left_join(., stepgoals) # let's bring that step goal back in here 
+```
+
+    ## Joining, by = "id"
+
+``` r
+goalsummary
+```
+
+    ## # A tibble: 60 x 12
+    ## # Groups:   id [?]
+    ##       id goalday  days meansteps sdsteps minsteps maxsteps meanMVPA sdMVPA
+    ##    <dbl> <chr>   <int>     <dbl>   <dbl>    <dbl>    <dbl>    <dbl>  <dbl>
+    ##  1    1. Goal M…   322    10359.   2812.    7516.   26378.     89.9   41.3
+    ##  2    1. Goal N…   941     3335.   2238.       0.    7499.     31.2   24.0
+    ##  3    2. Goal M…   295    13212.   3552.   10025.   31516.    185.    69.9
+    ##  4    2. Goal N…   868     6214.   2219.       0.    9987.     91.6   38.1
+    ##  5    3. Goal M…   416    12531.   3738.    8016.   29741.    159.    53.3
+    ##  6    3. Goal N…   386     4963.   2226.       0.    7985.     63.2   36.9
+    ##  7    4. Goal M…   193    19356.   3195.   15062.   36110.     97.9   38.3
+    ##  8    4. Goal N…    11     7077.   6852.       0.   14631.     31.1   32.4
+    ##  9    5. Goal M…   175    12422.   2100.   10047.   27093.    118.    49.0
+    ## 10    5. Goal N…   322     6047.   2068.       0.    9992.     81.0   42.7
+    ## # ... with 50 more rows, and 3 more variables: minMVPA <int>,
+    ## #   maxMVPA <int>, stepgoal <dbl>
+
+You can learn more about using `dplyr` to manipulate data here: <http://dplyr.tidyverse.org/>

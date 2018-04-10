@@ -209,11 +209,16 @@ demographics_factor <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDemographics/de
                                 )
 )
 
+library(readxl)
+stepgoals <- read_xlsx("~/GitHub/r4bs/ExampleData/FitbitDemographics/goals.xlsx")
+
 # using inner_join for only matching ids in both data sets
 # id is saved as ID in demographics, tell inner_join about that id == ID
-dailyactivity_demographics <- inner_join(dailyactivity_all, demographics_factor, by = c("id" = "ID"))
+# chaining joins to add a third data set, stepgoals
+dailyactivity_demo_goals <- inner_join(dailyactivity_all, demographics_factor, by = c("id" = "ID")) %>% 
+  left_join(., stepgoals)
 
-dailyactivity_demographics
+dailyactivity_demo_goals
 ```
 
 ## Deriving 
@@ -256,7 +261,8 @@ Let's say we want to create a new data set that gave us the following informatio
 * mean, sd, min, and max for MVPA minutes
 
 ```{r aggregate_summary}
-
+# create a new data set of summary data
+# first group, then summarise
 activitysummary <- dailyactivity_all %>% 
   group_by(id) %>% 
   summarise(observation_days = n(),
@@ -272,4 +278,38 @@ activitysummary <- dailyactivity_all %>%
 
 activitysummary
 ```
+
+Sometimes you may want to manipulate data as part of an intermediate step and not save that transformation. You can use the piping proccess to manipulate and pass that manipulated/transformed data to the next step in the process. 
+
+Let's explore how that works with our full data set to understand some summary information about when people do an do not meet their goals. 
+
+```{r mutate_aggregate_summarise}
+# we can also chain together multiple types of transformations
+# can use intermediate steps that may not need to be saved as variables
+
+goalsummary <- dailyactivity_demo_goals %>% 
+  mutate(goalday = case_when(TotalSteps < stepgoal ~ "Goal Not Met",
+                              TotalSteps >= stepgoal ~ "Goal Met")
+         ) %>% 
+  group_by(id, goalday) %>% 
+  summarise(days = n(),
+            meansteps = mean(TotalSteps),
+            sdsteps = sd(TotalSteps),
+            minsteps = min(TotalSteps),
+            maxsteps = max(TotalSteps),
+            meanMVPA = mean(FairlyActiveMinutes+VeryActiveMinutes),
+            sdMVPA = sd(FairlyActiveMinutes+VeryActiveMinutes),
+            minMVPA = min(FairlyActiveMinutes+VeryActiveMinutes),
+            maxMVPA = max(FairlyActiveMinutes+VeryActiveMinutes)
+  ) %>% 
+  left_join(., stepgoals) # let's bring that step goal back in here 
+
+goalsummary
+
+```
+
+
+
+You can learn more about using `dplyr` to manipulate data here: http://dplyr.tidyverse.org/
+
 
