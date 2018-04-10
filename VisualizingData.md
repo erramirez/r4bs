@@ -31,14 +31,14 @@ Let's start with understanding the total number of steps per day across our `p01
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ──────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
     ## ✔ tibble  1.4.2     ✔ dplyr   0.7.4
     ## ✔ tidyr   0.8.0     ✔ stringr 1.3.0
     ## ✔ readr   1.1.1     ✔ forcats 0.3.0
 
-    ## ── Conflicts ───────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ─────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -124,7 +124,7 @@ p01_colplot
 Facets, Fills, and Colors
 -------------------------
 
-Of course, you're not always going to visualize a single participant's data. You may want to visualize multiple participants all at once and make sense of differences. We can use ggplot2 functionality to do that. First let's create a new data set that only includes data for 2015, since that's the year with the most overlap.
+Of course, you're not always going to visualize a single participant's data. You may want to visualize multiple participants all at once and make sense of differences. We can use ggplot2 functionality to do that. First let's create a new data set that only includes data for 2015 for the first 10 participants.
 
 ``` r
 ### reading in data ####
@@ -171,22 +171,24 @@ stepgoals <- read_xlsx("~/GitHub/r4bs/ExampleData/FitbitDemographics/goals.xlsx"
 # id is saved as ID in demographics, tell inner_join about that id == ID
 # chaining joins to add a third data set, stepgoals
 dailyactivity_demo_goals <- inner_join(dailyactivity_all, demographics_factor, by = c("id" = "ID")) %>% 
-  left_join(., stepgoals)
+  left_join(., stepgoals) %>% 
+  mutate(goalday = case_when(TotalSteps < stepgoal ~ "Goal Not Met",
+                              TotalSteps >= stepgoal ~ "Goal Met")
+         ) 
 ```
 
     ## Joining, by = "id"
 
-``` r
-# we can use the filter() function to filter applicable rows
-dailyactivity_2015only <- dailyactivity_demo_goals %>% 
-  filter(ActivityDate >= "2015-01-01") 
-```
-
     ## Warning: package 'bindrcpp' was built under R version 3.4.4
 
 ``` r
+# we can use the filter() function to filter applicable rows
+dailyactivity_p1p10_2015only <- dailyactivity_demo_goals %>% 
+  filter(ActivityDate >= "2015-01-01",
+         id <= 10) 
+
 # we can create a summary data set too
-dailyactivity_2015only_summary <- dailyactivity_2015only %>% 
+dailyactivity_p1p10_2015only_summary <- dailyactivity_p1p10_2015only %>% 
   group_by(id) %>% 
   summarise(days = n(),
             meansteps = mean(TotalSteps),
@@ -200,4 +202,76 @@ dailyactivity_2015only_summary <- dailyactivity_2015only %>%
   )
 ```
 
-We want to see how everyone did \#\# Formatting Plots
+We want to see how everyone did on their daily steps so let's pass that information to a plot where we use color to differentiate between different participant ids. \#\#\# Color
+
+``` r
+# first create a plot with points and lines
+totalsteps_all_plot <- ggplot(dailyactivity_p1p10_2015only, aes(ActivityDate, TotalSteps)) +
+  geom_point() +
+  geom_line() 
+
+totalsteps_all_plot
+```
+
+![](VisualizingData_files/figure-markdown_github/10participants_color-1.png)
+
+``` r
+# now separate by id
+# use color to specify to color lines and points by ID
+totalsteps_byID_plot <- ggplot(dailyactivity_p1p10_2015only, aes(ActivityDate, TotalSteps, color = id)) +
+  geom_point() +
+  geom_line() 
+
+totalsteps_byID_plot
+```
+
+![](VisualizingData_files/figure-markdown_github/10participants_color-2.png)
+
+``` r
+# set id as factor so distinct colors are used 
+totalsteps_byID_plot <- ggplot(dailyactivity_p1p10_2015only, 
+                               aes(ActivityDate, TotalSteps, color = as.factor(id))) +
+  geom_point() +
+  geom_line() 
+
+totalsteps_byID_plot
+```
+
+![](VisualizingData_files/figure-markdown_github/10participants_color-3.png)
+
+### Facets
+
+That visualization above is still pretty messy. What if we break it the plot by ID so each ID has it's own separate plot? We can use facets to do that.
+
+``` r
+totalsteps_byID_facetplot <- ggplot(dailyactivity_p1p10_2015only, 
+                               aes(ActivityDate, TotalSteps, color = as.factor(id))) +
+  geom_point() +
+  geom_line() +
+  facet_grid(id ~.)
+
+totalsteps_byID_facetplot
+```
+
+![](VisualizingData_files/figure-markdown_github/10participants_facets-1.png)
+
+### Fills
+
+We can also use fills to change the way different data is presented in the plot. Let's use the example of a bar plot using `geom_col()` and the p01 data.
+
+``` r
+# we want to use a fill based on data that is present in our full demogrpahics_goals file
+# we can use a subset argument within the ggplot function to specify we only want p01 data
+# we pass the fill to the aesthetic arugment within geom_col
+p01_goaldays <- ggplot(subset(dailyactivity_demo_goals, id == 1), aes(ActivityDate, TotalSteps)) +
+  geom_col(aes(fill = goalday))
+
+p01_goaldays 
+```
+
+![](VisualizingData_files/figure-markdown_github/unnamed-chunk-1-1.png)
+
+Formatting Plots
+----------------
+
+You can spend countless hours and lines of code to make your plots look exactly how you like them. This includes adding different colors to the geoms, axis labels, plot titles (and subtitles), fonts, axis tick, and even the background color(s).

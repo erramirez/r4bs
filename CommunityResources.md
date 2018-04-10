@@ -50,5 +50,30 @@ RStudio Cheat Sheets
 Social Media
 ------------
 
+There are *so many* excellent people to follow on Twitter to stay up to date on the ongoings of R:
+
+-   the [\#rstats hashtag](https://twitter.com/search?q=rstats&src=spxr)
+-   [Mara Averick](https://twitter.com/dataandme)
+-   [Hadley Wickham](https://twitter.com/hadleywickham)
+-   [RStudio](https://twitter.com/rstudio)
+-   [Emily Robinson](https://twitter.com/robinson_es)
+-   [David Robinson](https://twitter.com/drob)
+-   [Jenny Bryan](https://twitter.com/JennyBryan)
+-   [Julia Silge](https://twitter.com/juliasilge)
+-   [Karen Woo](https://twitter.com/kara_woo)
+-   [Hillary Parker](https://twitter.com/hspter)
+-   [Bob Rudis](https://twitter.com/hrbrmstr)
+-   [Yihui Xie](https://twitter.com/xieyihui)
+-   [Jesse Maegan](https://twitter.com/kierisi)
+-   [R Forwards](https://twitter.com/R_Forwards)
+
 Conferences and IRL Groups
 --------------------------
+
+-   [useR!](https://www.r-project.org/conferences.html)
+    -   [useR! 2019, Toulouse, France](http://www.user2019.fr/)
+    -   [useR! 2018, Brisbane, Australia](https://user2018.r-project.org/)
+-   [rstudio::conf](https://www.rstudio.com/conference/)
+    -   [2018 talks](https://www.rstudio.com/resources/videos/rstudioconf-2018-talks/)
+-   [R User Groups](https://jumpingrivers.github.io/meetingsR/r-user-groups.html)
+-   [R Ladies Groups](https://rladies.org/)
