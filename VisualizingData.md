@@ -275,3 +275,59 @@ Formatting Plots
 ----------------
 
 You can spend countless hours and lines of code to make your plots look exactly how you like them. This includes adding different colors to the geoms, axis labels, plot titles (and subtitles), fonts, axis tick, and even the background color(s).
+
+``` r
+#install.packages(ggthemes)
+
+# load the ggthemes package for nice pre-made themes
+library(ggthemes)
+```
+
+    ## Warning: package 'ggthemes' was built under R version 3.4.4
+
+``` r
+library(scales)
+```
+
+    ## 
+    ## Attaching package: 'scales'
+
+    ## The following object is masked from 'package:purrr':
+    ## 
+    ##     discard
+
+    ## The following object is masked from 'package:readr':
+    ## 
+    ##     col_factor
+
+``` r
+p01_goaldays2015 <- ggplot(subset(dailyactivity_demo_goals, id == 1 & ActivityDate >= "2015-01-01"), 
+                           aes(ActivityDate, TotalSteps)) +
+  geom_col(aes(fill = goalday)) + 
+  geom_hline(yintercept = 7500, color = "red", linetype = 3) +
+  annotate("text", label = "7500", x=as.Date("2015-01-01"), y = 8000, size = 3, colour = "red") +
+  scale_y_continuous(labels = comma) +
+  scale_x_date(breaks=date_breaks("15 day"), date_minor_breaks = "1 day", labels=date_format("%m/%d/%y"), limits = as.Date(c("2015-01-01", "2015-06-30"))) +
+  scale_fill_manual(values=c("#343233", "#3ec1c1"), name="Step Goal Met?", 
+                    breaks=c("Goal Not Met", "Goal Met"), labels=c("No", "Yes")) +
+  theme_fivethirtyeight() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "When Did Participant #1 Meet Their Daily Step Goal?",
+       subtitle = "Jan - July, 2015",
+       x = "Date",
+       y = "Daily Step Count") +
+  theme(plot.title = element_text(family = 'Helvetica', 
+                                  face = 'bold', 
+                                  size = 14,
+                                  color = "#3ec1c1",
+                                  hjust = 0)) +
+  theme(plot.subtitle = element_text(family = 'Helvetica', 
+                                     size = 12,
+                                     color = "#343233",
+                                     hjust = 0))
+
+
+p01_goaldays2015
+```
+
+![](VisualizingData_files/figure-markdown_github/ggplot_formatting-1.png)
