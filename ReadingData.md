@@ -19,7 +19,7 @@ We want to first explore how to use base R to read in a csv. We'll start with re
 ``` r
 # use read.csv to read in the p01_dailyActivity.csv file and name it p01_base
 # NOTE: using the full directory path here
-p01_base <- read.csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p01_dailyActivity.csv")
+p01_base <- read.csv("ExampleData/FitbitDailyData/p01_dailyActivity.csv")
 ```
 
 Great! We created a data frame. What if we want to understand the structure of the data? We can use the `str()` function from the included `utils` package.
@@ -55,23 +55,25 @@ The tidyverse loads the `readr` package, which is a powerful package for reading
 
 ``` r
 # load tidyverse because it's great
+#install.packages("tidyverse")
+
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
     ## ✔ tibble  1.4.2     ✔ dplyr   0.7.4
     ## ✔ tidyr   0.8.0     ✔ stringr 1.3.0
     ## ✔ readr   1.1.1     ✔ forcats 0.3.0
 
-    ## ── Conflicts ───────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
 ``` r
 # use read_csv to read in the p01_dailyActivity.csv file and name it p01_readr
-p01_readr <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData//p01_dailyActivity.csv")
+p01_readr <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p01_dailyActivity.csv")
 ```
 
     ## Parsed with column specification:
@@ -129,6 +131,25 @@ head(p01_readrformat)
     ## 4 2012-01-12         6250          4.24            4.24               0.  
     ## 5 2012-01-13         9182          6.24            6.24               0.  
     ## 6 2012-01-14         8139          6.81            6.81               0.  
+    ## # ... with 10 more variables: VeryActiveDistance <dbl>,
+    ## #   ModeratelyActiveDistance <dbl>, LightActiveDistance <dbl>,
+    ## #   SedentaryActiveDistance <dbl>, VeryActiveMinutes <int>,
+    ## #   FairlyActiveMinutes <int>, LightlyActiveMinutes <int>,
+    ## #   SedentaryMinutes <int>, Calories <int>, id <int>
+
+``` r
+tail(p01_readrformat)
+```
+
+    ## # A tibble: 6 x 15
+    ##   ActivityDate TotalSteps TotalDistance TrackerDistance LoggedActivitiesD…
+    ##   <date>            <int>         <dbl>           <dbl>              <dbl>
+    ## 1 2015-06-19         7117          4.86            4.86                 0.
+    ## 2 2015-06-20         8809          5.99            5.99                 0.
+    ## 3 2015-06-21         5720          3.97            3.97                 0.
+    ## 4 2015-06-22         1790          1.22            1.22                 0.
+    ## 5 2015-06-23        16560         11.3            11.3                  0.
+    ## 6 2015-06-24         4921          3.35            3.35                 0.
     ## # ... with 10 more variables: VeryActiveDistance <dbl>,
     ## #   ModeratelyActiveDistance <dbl>, LightActiveDistance <dbl>,
     ## #   SedentaryActiveDistance <dbl>, VeryActiveMinutes <int>,

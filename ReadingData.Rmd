@@ -21,7 +21,7 @@ We want to first explore how to use base R to read in a csv. We'll start with re
 ```{r read_base}
 # use read.csv to read in the p01_dailyActivity.csv file and name it p01_base
 # NOTE: using the full directory path here
-p01_base <- read.csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p01_dailyActivity.csv")
+p01_base <- read.csv("ExampleData/FitbitDailyData/p01_dailyActivity.csv")
 ```
 
 Great! We created a data frame. What if we want to understand the structure of the data? We can use the `str()` function from the included `utils` package. 
@@ -40,12 +40,14 @@ The tidyverse loads the `readr` package, which is a powerful package for reading
 
 ```{r load_tidy}
 # load tidyverse because it's great
+#install.packages("tidyverse")
+
 library(tidyverse)
 ```
 
 ```{r read_date}
 # use read_csv to read in the p01_dailyActivity.csv file and name it p01_readr
-p01_readr <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData//p01_dailyActivity.csv")
+p01_readr <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p01_dailyActivity.csv")
 ```
 
 Well look at that! The `read_csv` package not only loads the data but it automatically prints the column (variable) format. You'll also notice that `ActivityDate` is not a factor, but a character. Awesome. 

@@ -28,6 +28,7 @@ There is no shortage of books, online tutorials, and communities that can help y
 * [R for Data Science](http://r4ds.had.co.nz/)
 * [Beginner's guide to R - ComputerWorld](http://www.computerworld.com/article/2497143/business-intelligence/business-intelligence-beginner-s-guide-to-r-introduction.html)
 * [Flowing Data](http://flowingdata.com/) - general data science, membership-based R tutorials ($5/mo)
+* [r For Data Science Online Learning Community](https://www.jessemaegan.com/post/r4ds-the-next-iteration/)
 
 ## Q&A Sites
 * [Stackoverflow](http://stackoverflow.com/questions/tagged/r)
