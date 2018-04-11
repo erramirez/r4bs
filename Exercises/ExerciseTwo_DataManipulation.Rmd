@@ -1,5 +1,5 @@
 ---
-title: "Exercise One"
+title: "Exercise Two: Data Manipulation"
 output: github_document
 ---
 
@@ -16,5 +16,3 @@ Try to complete the following:
 2.  Read in the demographics file and set appropriate variables as factors.
     a) Drop/remove the following variables: `Ethnicity` and `Education`.
 3. Read in the goals file.
-
-

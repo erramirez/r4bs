@@ -1,0 +1,18 @@
+---
+title: "Exercise Three: Visualizing Data""
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercise One
+Try to complete the following:
+
+1. Read in the first five participants (p01 - p05).
+    a) Drop/remove the following variables: `TrackerDistance`, `SedentaryDistance`, and `Calories`.
+    b) Set variables in the appropriate format(s).
+2.  Read in the demographics file and set appropriate variables as factors.
+    a) Drop/remove the following variables: `Ethnicity` and `Education`.
+3. Read in the goals file.
