@@ -16,6 +16,7 @@ Texts
 -   [R Cookbook](http://shop.oreilly.com/product/9780596809164.do)
 -   [R for Data Science](http://shop.oreilly.com/product/0636920034407.do) *Also freely available online, see below*
 -   [R for SAS and SPSS Users](https://www.springer.com/us/book/9780387094182)
+-   [Advanced R](https://adv-r.hadley.nz/)
 
 Websites & Blogs
 ----------------
