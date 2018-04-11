@@ -1,9 +1,6 @@
 Exercise One: Reading in Data
 ================
 
-Exercise One
-------------
-
 Try to complete the following:
 
 1.  Read in the first five participants (p01 - p05).
