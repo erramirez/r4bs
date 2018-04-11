@@ -71,6 +71,8 @@ p01_readrformat <- read_csv("~/GitHub/r4bs/ExampleData/FitbitDailyData/p01_daily
 )
 
 head(p01_readrformat)
+
+tail(p01_readrformat)
 ```
 
 You can also do other types of formatting and data editing within your `read_csv` call. For example, let's say that we don't care about any of the distance information in this file. We can specify that we want to skip reading those in. 
